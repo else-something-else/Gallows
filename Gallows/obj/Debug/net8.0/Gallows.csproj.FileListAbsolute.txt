@@ -1,0 +1,15 @@
+C:\Users\qubok\dev\dev\Gallows\Gallows\bin\Debug\net8.0\Gallows.exe
+C:\Users\qubok\dev\dev\Gallows\Gallows\bin\Debug\net8.0\Gallows.deps.json
+C:\Users\qubok\dev\dev\Gallows\Gallows\bin\Debug\net8.0\Gallows.runtimeconfig.json
+C:\Users\qubok\dev\dev\Gallows\Gallows\bin\Debug\net8.0\Gallows.dll
+C:\Users\qubok\dev\dev\Gallows\Gallows\bin\Debug\net8.0\Gallows.pdb
+C:\Users\qubok\dev\dev\Gallows\Gallows\obj\Debug\net8.0\Gallows.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\qubok\dev\dev\Gallows\Gallows\obj\Debug\net8.0\Gallows.AssemblyInfoInputs.cache
+C:\Users\qubok\dev\dev\Gallows\Gallows\obj\Debug\net8.0\Gallows.AssemblyInfo.cs
+C:\Users\qubok\dev\dev\Gallows\Gallows\obj\Debug\net8.0\Gallows.csproj.CoreCompileInputs.cache
+C:\Users\qubok\dev\dev\Gallows\Gallows\obj\Debug\net8.0\Gallows.sourcelink.json
+C:\Users\qubok\dev\dev\Gallows\Gallows\obj\Debug\net8.0\Gallows.dll
+C:\Users\qubok\dev\dev\Gallows\Gallows\obj\Debug\net8.0\refint\Gallows.dll
+C:\Users\qubok\dev\dev\Gallows\Gallows\obj\Debug\net8.0\Gallows.pdb
+C:\Users\qubok\dev\dev\Gallows\Gallows\obj\Debug\net8.0\Gallows.genruntimeconfig.cache
+C:\Users\qubok\dev\dev\Gallows\Gallows\obj\Debug\net8.0\ref\Gallows.dll

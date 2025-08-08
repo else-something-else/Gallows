@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Gallows")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+541d3f018cfd2aea756ae7b8d89c6385f90852bc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c06a848198979bd9a3ac9481eb7211d0de96eb1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Gallows")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Gallows")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

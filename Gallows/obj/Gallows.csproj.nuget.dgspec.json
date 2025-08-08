@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\qubok\\dev\\dev\\Gallows\\Gallows\\Gallows.csproj": {}
+    "C:\\Users\\qubok\\OneDrive\\Documents\\GitHub\\Gallows\\Gallows\\Gallows.csproj": {}
   },
   "projects": {
-    "C:\\Users\\qubok\\dev\\dev\\Gallows\\Gallows\\Gallows.csproj": {
+    "C:\\Users\\qubok\\OneDrive\\Documents\\GitHub\\Gallows\\Gallows\\Gallows.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\qubok\\dev\\dev\\Gallows\\Gallows\\Gallows.csproj",
+        "projectUniqueName": "C:\\Users\\qubok\\OneDrive\\Documents\\GitHub\\Gallows\\Gallows\\Gallows.csproj",
         "projectName": "Gallows",
-        "projectPath": "C:\\Users\\qubok\\dev\\dev\\Gallows\\Gallows\\Gallows.csproj",
+        "projectPath": "C:\\Users\\qubok\\OneDrive\\Documents\\GitHub\\Gallows\\Gallows\\Gallows.csproj",
         "packagesPath": "C:\\Users\\qubok\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\qubok\\dev\\dev\\Gallows\\Gallows\\obj\\",
+        "outputPath": "C:\\Users\\qubok\\OneDrive\\Documents\\GitHub\\Gallows\\Gallows\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

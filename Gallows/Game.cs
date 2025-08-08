@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Gallows
 {
@@ -31,35 +33,38 @@ namespace Gallows
             string word = randomWord;
             List<char> guessedLetters = new List<char>();
 
-            //Menu();
+            Console.Clear();
+            Console.WriteLine("Игра началась!\nЯ загадал слово, отгадай его буква за буквой, у тебя 10 попыток");
+            Console.WriteLine("Слово: " + randomWord);
 
             while (!gameOver)
             {
-                Console.WriteLine("Игра началась!\nЯ загадал слово, отгадай его буква за буквой");
-                Console.WriteLine("Слово:" + randomWord);
                 char playerInput = Console.ReadKey().KeyChar;
 
-                if (playerInput == '0')
+                if (guessedLetters.Contains(playerInput))
                 {
-                    Console.WriteLine("Конец игры!");
-                    gameOver = false;
-                    Menu();
-                }
-                else if (playerInput == '1')
-                {
-                    gameOver = true;
-                    Console.WriteLine("Играем заново!");
-                    StartGame();
+                    continue;
                 }
 
-                if (word.Contains(playerInput) && !guessedLetters.Contains(playerInput))
+                if (word.Contains(playerInput))
                 {
-                    Console.WriteLine("\nВерно!\n");
+                    //Console.WriteLine("\nВерно!\n");
+                    Console.Clear();
                 }
                 else
                 {
-                    Console.WriteLine("\nНе верно!\n");
+                    Console.Clear();
+                    //Console.WriteLine("\nНе верно!\n");
+                    DrawGallows(errorCount);
                     errorCount++;
+                }
+
+                if (errorCount > 10)
+                {
+                    Console.WriteLine("Играем заново?");
+                    gameOver = true;
+                    Menu();
+                    StartGame();
                 }
 
                 guessedLetters.Add(playerInput);
@@ -86,51 +91,69 @@ namespace Gallows
                     }
                 }
 
-                if (errorCount > 32)
+                if (wordComplete)
                 {
-                    Console.WriteLine("Вы проиграли!");
-                    gameOver = true;
-                    //break;
+                    DrawGallows(errorCount);
+                    Console.WriteLine("Вы выиграли!\nНажмите любую кнопку чтобы продолжить");
+                    Console.ReadKey();
+                    Menu();
                     StartGame();
                 }
 
                 gameOver = wordComplete;
-
-                if (wordComplete)
-                {
-                    Console.WriteLine("Вы выиграли!");
-                    StartGame();
-                }
-                Console.WriteLine("Счетчик ошибок: " + errorCount);
+                //Console.WriteLine("Счетчик ошибок: " + errorCount);
             }
         }
         public static void Menu()
         {
-            Console.WriteLine("1 - играть или играть заново.\n0 - выход");
-            //int input = Convert.ToInt32(Console.ReadLine());
             int input;
+            bool menuExit = false;
 
-            try
-            {
-                int.TryParse(Console.ReadLine(), out input);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Co");
-                throw;
-            }
+            Console.Clear();
+            Console.WriteLine("1 - играть или играть заново.\n0 - выход");
 
-            switch (input)
+            while (!menuExit)
             {
-                case (int)MenuChoice.Play:
-                    Console.WriteLine("Играем!");
-                    break;
-                case (int)MenuChoice.Exit:
-                    Console.WriteLine("Не играем");
-                    break;
-                default:
-                    Console.WriteLine("Неверный выбор");
-                    break;
+                if (!int.TryParse(Console.ReadLine(), out input))
+                {
+                    Console.WriteLine("Некорректный ввод! Повторите попытку.");
+                    Console.WriteLine("1 - играть или играть заново.\n0 - выход");
+                    continue;
+                }
+                else
+                {
+                    switch ((MenuChoice)input)
+                    {
+                        case MenuChoice.Play:
+                            menuExit = true;
+                            break;
+                        case MenuChoice.Exit:
+                            Console.WriteLine("Не играем!");
+                            Environment.Exit(0);
+                            break;
+                        default:
+                            Console.WriteLine("Неверный выбор!");
+                            break;
+                    }
+                }
+            }
+        }
+        public static void DrawGallows(int errorCount)
+        {
+            string[] gallows = new string[]
+            {
+                        " _________     ",
+                        " |       |     ",
+                        $" |       {(errorCount >= 1 ? "O" : " ")}",
+                        $" |      {(errorCount >= 3 ? "/" : " ")}{(errorCount >= 2 ? "|" : " ")}{(errorCount >= 4 ? "\\" : " ")}",
+                        $" |      {(errorCount >= 5 ? "/" : " ")} {(errorCount >= 6 ? "\\" : " ")}",
+                        " |             ",
+                        "_|_            "
+            };
+
+            foreach(string line in gallows)
+            {
+                Console.WriteLine(line);
             }
         }
     }

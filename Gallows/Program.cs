@@ -10,7 +10,7 @@ namespace Gallows
         {
             Console.OutputEncoding = Encoding.UTF8;
             Console.InputEncoding = Encoding.UTF8;
-            Game.Menu();
+            Menu.Start();
             Game.StartGame();
         }
     }

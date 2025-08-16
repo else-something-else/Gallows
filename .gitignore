@@ -1,3 +1,21 @@
-.vs/ 
+# Visual Studio
+.vs/
+
+# Build output
 bin/
 obj/
+
+# Пользовательские настройки
+*.user
+*.suo
+*.userprefs
+
+# Логи
+*.log
+
+# Пакеты NuGet
+*.nupkg
+packages/
+
+# Кэш тестов
+TestResult*/

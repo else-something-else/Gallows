@@ -6,155 +6,102 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
+using System.Threading.Channels;
 
-namespace Gallows
+namespace Gallows;
+
+public static class Game
 {
-    public static class Game
+    // Dictionary path
+    private const string DictionaryfileName = "Dictionary.txt";
+    private static readonly string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DictionaryfileName);
+    private static readonly string[] dictionary = File.ReadAllLines(path);
+    private const int maxErrorCount = 10;
+
+
+    public static void StartGame()
     {
-        enum MenuChoice
+        int errorCount = 0;
+        bool gameOver = false;
+        bool wordComplete = true;
+        Random rnd = new Random();
+        string randomWord = dictionary[rnd.Next(dictionary.Length)];
+        string word = randomWord;
+        List<char> guessedLetters = new List<char>();
+
+        Console.Clear();
+        Console.WriteLine("Игра началась!\nЯ загадал слово, отгадай его буква за буквой, у тебя 10 попыток");
+        Console.WriteLine("Слово: " + randomWord);
+
+        while (!gameOver)
         {
-            Exit = 0,
-            Play = 1
-        }
+            char playerInput = Console.ReadKey().KeyChar;
 
-        public static void StartGame()
-        {
-            bool gameOver = false;
-            int errorCount = 0;
-
-            // Path to dictionary
-            const string fileName = "Dictionary.txt";
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
-
-            string[] dictionary = File.ReadAllLines(path);
-            var rnd = new Random();
-            string randomWord = dictionary[rnd.Next(dictionary.Length)];
-
-            string word = randomWord;
-            List<char> guessedLetters = new List<char>();
-
-            Console.Clear();
-            Console.WriteLine("Игра началась!\nЯ загадал слово, отгадай его буква за буквой, у тебя 10 попыток");
-            Console.WriteLine("Слово: " + randomWord);
-
-            while (!gameOver)
+            if (word.Contains(playerInput) && Char.IsLetter(playerInput))
             {
-                char playerInput = Console.ReadKey().KeyChar;
+                Console.Clear() ;
+            }
+            else if(!Char.IsLetter(playerInput))
+            {
+                Console.Clear();
+                Console.WriteLine("\nНе вводите цифры!\n");
+            }
+            else
+            {
+                Console.Clear();
+                DrawGallows(errorCount);
+                errorCount++;
+            }
 
-                if (guessedLetters.Contains(playerInput))
-                {
-                    continue;
-                }
+            if (errorCount > maxErrorCount)
+            {
+                Console.WriteLine("Играем заново?");
+                gameOver = true;
+                Menu.Start();
+                StartGame();
+            }
 
-                if (word.Contains(playerInput))
+            guessedLetters.Add(playerInput);
+            foreach (char c in word)
+            {
+                if (guessedLetters.Contains(c))
                 {
-                    //Console.WriteLine("\nВерно!\n");
-                    Console.Clear();
+                    Console.Write(c);
                 }
                 else
                 {
-                    Console.Clear();
-                    //Console.WriteLine("\nНе верно!\n");
-                    DrawGallows(errorCount);
-                    errorCount++;
-                }
-
-                if (errorCount > 10)
-                {
-                    Console.WriteLine("Играем заново?");
-                    gameOver = true;
-                    Menu();
-                    StartGame();
-                }
-
-                guessedLetters.Add(playerInput);
-                foreach (char c in word)
-                {
-                    if (guessedLetters.Contains(c))
-                    {
-                        Console.Write(c);
-                    }
-                    else
-                    {
-                        Console.Write("_");
-                    }
-                }
-                Console.WriteLine("\n");
-
-                bool wordComplete = true;
-
-                foreach (char c in word)
-                {
-                    if (!guessedLetters.Contains(c))
-                    {
-                        wordComplete = false;
-                    }
-                }
-
-                if (wordComplete)
-                {
-                    DrawGallows(errorCount);
-                    Console.WriteLine("Вы выиграли!\nНажмите любую кнопку чтобы продолжить");
-                    Console.ReadKey();
-                    Menu();
-                    StartGame();
-                }
-
-                gameOver = wordComplete;
-                //Console.WriteLine("Счетчик ошибок: " + errorCount);
-            }
-        }
-        public static void Menu()
-        {
-            int input;
-            bool menuExit = false;
-
-            Console.Clear();
-            Console.WriteLine("1 - играть или играть заново.\n0 - выход");
-
-            while (!menuExit)
-            {
-                if (!int.TryParse(Console.ReadLine(), out input))
-                {
-                    Console.WriteLine("Некорректный ввод! Повторите попытку.");
-                    Console.WriteLine("1 - играть или играть заново.\n0 - выход");
-                    continue;
-                }
-                else
-                {
-                    switch ((MenuChoice)input)
-                    {
-                        case MenuChoice.Play:
-                            menuExit = true;
-                            break;
-                        case MenuChoice.Exit:
-                            Console.WriteLine("Не играем!");
-                            Environment.Exit(0);
-                            break;
-                        default:
-                            Console.WriteLine("Неверный выбор!");
-                            break;
-                    }
+                    Console.Write("_");
                 }
             }
-        }
-        public static void DrawGallows(int errorCount)
-        {
-            string[] gallows = new string[]
-            {
-                        " _________     ",
-                        " |       |     ",
-                        $" |       {(errorCount >= 1 ? "O" : " ")}",
-                        $" |      {(errorCount >= 3 ? "/" : " ")}{(errorCount >= 2 ? "|" : " ")}{(errorCount >= 4 ? "\\" : " ")}",
-                        $" |      {(errorCount >= 5 ? "/" : " ")} {(errorCount >= 6 ? "\\" : " ")}",
-                        " |             ",
-                        "_|_            "
-            };
+            Console.WriteLine("\n");
 
-            foreach(string line in gallows)
+
+
+            foreach (char c in word)
             {
-                Console.WriteLine(line);
+                if (!guessedLetters.Contains(c))
+                {
+                    wordComplete = false;
+                }
             }
+
+            if (wordComplete)
+            {
+                DrawGallows(errorCount);
+                Console.WriteLine("Вы выиграли!\nНажмите любую кнопку чтобы продолжить");
+                Console.ReadKey();
+                Menu.Start();
+                StartGame();
+            }
+
+            gameOver = wordComplete;
+            //Console.WriteLine("Счетчик ошибок: " + errorCount);
         }
+    }
+
+    public static void DrawGallows(int errorCount)
+    {
+
     }
 }

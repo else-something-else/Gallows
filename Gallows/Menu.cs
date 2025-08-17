@@ -8,12 +8,6 @@ namespace Gallows;
 
 public static class Menu
 {
-    enum MenuChoice
-    {
-        Exit = 0,
-        Play = 1
-    }
-
     public static void Start()
     {
         bool menuExit = false;
@@ -31,12 +25,12 @@ public static class Menu
             }
             else
             {
-                switch ((MenuChoice)input)
+                switch ((Gallows.Choice)input)
                 {
-                    case MenuChoice.Play:
+                    case Gallows.Choice.Play:
                         menuExit = true;
                         break;
-                    case MenuChoice.Exit:
+                    case Gallows.Choice.Exit:
                         Console.WriteLine("Не играем!");
                         Environment.Exit(0);
                         break;

@@ -19,6 +19,79 @@ public static class Game
     private static readonly string[] dictionary = File.ReadAllLines(path);
     private const int maxErrorCount = 10;
 
+    private static readonly string[][] gallows =
+    {
+        new string[]
+        {
+            "  _______",
+            "  |     |",
+            "  |",
+            "  |",
+            "  |",
+            "  |",
+            "__|__"
+        },
+        new string[]
+        {
+            "  _______",
+            "  |     |",
+            "  |     O",
+            "  |",
+            "  |",
+            "  |",
+            "__|__"
+        },
+        new string[]
+        {
+            "  _______",
+            "  |     |",
+            "  |     O",
+            "  |     |",
+            "  |     |",
+            "  |",
+            "__|__"
+        },
+        new string[]
+        {
+            "  _______",
+            "  |     |",
+            "  |     O",
+            "  |    /|",
+            "  |     |",
+            "  |",
+            "__|__"
+        },
+        new string[]
+        {
+            "  _______",
+            "  |     |",
+            "  |     O",
+            "  |    /|\\",
+            "  |     |",
+            "  |",
+            "__|__"
+        },
+        new string[]
+        {
+            "  _______",
+            "  |     |",
+            "  |     O",
+            "  |    /|\\",
+            "  |     |",
+            "  |    /",
+            "__|__"
+        },
+        new string[]
+        {
+            "  _______",
+            "  |     |",
+            "  |     O",
+            "  |    /|\\",
+            "  |     |",
+            "  |    / \\",
+            "__|__"
+        }
+    };
 
     public static void StartGame()
     {
@@ -52,6 +125,7 @@ public static class Game
                 Console.Clear();
                 DrawGallows(errorCount);
                 errorCount++;
+                Console.WriteLine($"errorCount: {errorCount}");
             }
 
             if (errorCount > maxErrorCount)
@@ -69,6 +143,8 @@ public static class Game
                 {
                     Console.Write(c);
                 }
+                else if (word.Contains(c))
+                    break;
                 else
                 {
                     Console.Write("_");
@@ -102,6 +178,10 @@ public static class Game
 
     public static void DrawGallows(int errorCount)
     {
-
+        int index = Math.Min(errorCount, gallows.Length - 1);
+        foreach (var line in gallows[index])
+        {
+            Console.WriteLine(line);
+        }
     }
 }

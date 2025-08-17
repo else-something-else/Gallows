@@ -136,6 +136,14 @@ public static class Game
                 StartGame();
             }
 
+
+            if (guessedLetters.Contains(playerInput))
+            {
+                Console.Clear();
+                Console.WriteLine($"\nВы уже вводили букву '{playerInput}'!\nПродолжите со следующей буквы\n");
+                continue;
+            }
+
             guessedLetters.Add(playerInput);
             foreach (char c in word)
             {
@@ -143,8 +151,6 @@ public static class Game
                 {
                     Console.Write(c);
                 }
-                else if (word.Contains(c))
-                    break;
                 else
                 {
                     Console.Write("_");
@@ -160,6 +166,10 @@ public static class Game
                 {
                     wordComplete = false;
                 }
+                else
+                {
+                    wordComplete = true;
+                }
             }
 
             if (wordComplete)
@@ -172,7 +182,6 @@ public static class Game
             }
 
             gameOver = wordComplete;
-            //Console.WriteLine("Счетчик ошибок: " + errorCount);
         }
     }
 

@@ -25,12 +25,12 @@ public static class Menu
             }
             else
             {
-                switch ((Gallows.Choice)input)
+                switch ((Gallows.MenuChoice)input)
                 {
-                    case Gallows.Choice.Play:
+                    case Gallows.MenuChoice.Play:
                         menuExit = true;
                         break;
-                    case Gallows.Choice.Exit:
+                    case Gallows.MenuChoice.Exit:
                         Console.WriteLine("Не играем!");
                         Environment.Exit(0);
                         break;

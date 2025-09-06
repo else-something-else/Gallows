@@ -14,8 +14,9 @@ namespace Gallows;
 public static class Game
 {
     // Dictionary path
-    private const string DictionaryfileName = "Dictionary.txt";
-    private static readonly string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DictionaryfileName);
+    private const string DictionaryFileName = "Dictionary.txt";
+    //private static readonly string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DictionaryFileName);
+    private static readonly string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DictionaryFileName);
     private static readonly string[] dictionary = File.ReadAllLines(path);
     private const int maxErrorCount = 10;
 
@@ -113,9 +114,9 @@ public static class Game
 
             if (word.Contains(playerInput) && Char.IsLetter(playerInput))
             {
-                Console.Clear() ;
+                Console.Clear();
             }
-            else if(!Char.IsLetter(playerInput))
+            else if (!Char.IsLetter(playerInput))
             {
                 Console.Clear();
                 Console.WriteLine("\nНе вводите цифры!\n");
@@ -147,18 +148,18 @@ public static class Game
             guessedLetters.Add(playerInput);
             foreach (char c in word)
             {
-                if (guessedLetters.Contains(c))
-                {
-                    Console.Write(c);
-                }
-                else
-                {
-                    Console.Write("_");
-                }
+                //if (guessedLetters.Contains(c))
+                //{
+                //    Console.Write(c);
+                //}
+                //else
+                //{
+                //    Console.Write("_");
+                //}
+
+                Console.Write(guessedLetters.Contains(c) ? c : '_');
             }
             Console.WriteLine("\n");
-
-
 
             foreach (char c in word)
             {

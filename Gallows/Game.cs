@@ -1,98 +1,12 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection.Metadata.Ecma335;
-using System.Security.Cryptography.X509Certificates;
-using System.Text.RegularExpressions;
-using System.Threading.Channels;
-
-namespace Gallows;
+﻿namespace Gallows;
 
 public static class Game
 {
     // Dictionary path
     private const string DictionaryFileName = "Dictionary.txt";
-    //private static readonly string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DictionaryFileName);
-    private static readonly string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DictionaryFileName);
+    private static readonly string path = Path.Combine(AppContext.BaseDirectory, "..", "..", "..", DictionaryFileName);
     private static readonly string[] dictionary = File.ReadAllLines(path);
     private const int maxErrorCount = 10;
-
-    private static readonly string[][] gallows =
-    {
-        new string[]
-        {
-            "  _______",
-            "  |     |",
-            "  |",
-            "  |",
-            "  |",
-            "  |",
-            "__|__"
-        },
-        new string[]
-        {
-            "  _______",
-            "  |     |",
-            "  |     O",
-            "  |",
-            "  |",
-            "  |",
-            "__|__"
-        },
-        new string[]
-        {
-            "  _______",
-            "  |     |",
-            "  |     O",
-            "  |     |",
-            "  |     |",
-            "  |",
-            "__|__"
-        },
-        new string[]
-        {
-            "  _______",
-            "  |     |",
-            "  |     O",
-            "  |    /|",
-            "  |     |",
-            "  |",
-            "__|__"
-        },
-        new string[]
-        {
-            "  _______",
-            "  |     |",
-            "  |     O",
-            "  |    /|\\",
-            "  |     |",
-            "  |",
-            "__|__"
-        },
-        new string[]
-        {
-            "  _______",
-            "  |     |",
-            "  |     O",
-            "  |    /|\\",
-            "  |     |",
-            "  |    /",
-            "__|__"
-        },
-        new string[]
-        {
-            "  _______",
-            "  |     |",
-            "  |     O",
-            "  |    /|\\",
-            "  |     |",
-            "  |    / \\",
-            "__|__"
-        }
-    };
 
     public static void StartGame()
     {
@@ -124,7 +38,7 @@ public static class Game
             else
             {
                 Console.Clear();
-                DrawGallows(errorCount);
+                DrawGallows.Draw(errorCount);
                 errorCount++;
                 Console.WriteLine($"errorCount: {errorCount}");
             }
@@ -148,34 +62,27 @@ public static class Game
             guessedLetters.Add(playerInput);
             foreach (char c in word)
             {
-                //if (guessedLetters.Contains(c))
-                //{
-                //    Console.Write(c);
-                //}
-                //else
-                //{
-                //    Console.Write("_");
-                //}
-
                 Console.Write(guessedLetters.Contains(c) ? c : '_');
             }
             Console.WriteLine("\n");
 
             foreach (char c in word)
             {
-                if (!guessedLetters.Contains(c))
-                {
-                    wordComplete = false;
-                }
-                else
-                {
-                    wordComplete = true;
-                }
+                //if (!guessedLetters.Contains(c))
+                //{
+                //    wordComplete = false;
+                //}
+                //else
+                //{
+                //    wordComplete = true;
+                //}
+                wordComplete = guessedLetters.Contains(c) ? true : false;
+
             }
 
             if (wordComplete)
             {
-                DrawGallows(errorCount);
+                DrawGallows.Draw(errorCount);
                 Console.WriteLine("Вы выиграли!\nНажмите любую кнопку чтобы продолжить");
                 Console.ReadKey();
                 Menu.Start();
@@ -186,12 +93,5 @@ public static class Game
         }
     }
 
-    public static void DrawGallows(int errorCount)
-    {
-        int index = Math.Min(errorCount, gallows.Length - 1);
-        foreach (var line in gallows[index])
-        {
-            Console.WriteLine(line);
-        }
-    }
+
 }

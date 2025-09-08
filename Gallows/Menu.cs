@@ -25,17 +25,19 @@ public static class Menu
             }
             else
             {
-                switch ((Gallows.MenuChoice)input)
+                switch ((Gallows.MenuItems)input)
                 {
-                    case Gallows.MenuChoice.Play:
+                    case Gallows.MenuItems.Play:
                         menuExit = true;
                         break;
-                    case Gallows.MenuChoice.Exit:
+                    case Gallows.MenuItems.Exit:
                         Console.WriteLine("Не играем!");
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine("Неверный выбор!");
+                        Console.Clear();
+                        Console.WriteLine("Неверный выбор!"); 
+                        Console.WriteLine("1 - играть или играть заново.\n0 - выход");
                         break;
                 }
             }
